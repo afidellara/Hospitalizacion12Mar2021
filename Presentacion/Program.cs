@@ -121,7 +121,7 @@ namespace Presentacion
                         string afiliacionFiltro;
                         
                         Console.WriteLine("CONSULTAR POR AFILIACION");
-                        Console.WriteLine("CON O SUB: ");
+                        Console.WriteLine("CON  O  SUB: ");
                         afiliacionFiltro = Console.ReadLine();
                         ConsultaRespuesta consulta1 = cuotaModeradoraService.ConsultarPorAfiliacion(afiliacionFiltro);
                         if (!consulta1.Error)
