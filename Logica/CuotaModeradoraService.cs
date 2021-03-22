@@ -60,7 +60,7 @@ namespace Logica
         {
             try
             {
-                    CuotaModeradoraRepository.Eliminar(cedula);
+                    cuotaModeradoraRepository.Eliminar(cedula);
                     return "Persona eliminada";
             }
             catch (Exception e)

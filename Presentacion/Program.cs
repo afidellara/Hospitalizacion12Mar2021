@@ -26,8 +26,8 @@ namespace Presentacion
                 Console.WriteLine("M E N U");
                 Console.WriteLine("1. Registrar pulsaciones");
                 Console.WriteLine("2. Consultar lista de pacientes");
-                Console.WriteLine("3. Eliminar");
-                Console.WriteLine("4. Ver informacion por persona");
+                Console.WriteLine("3. Filtar por afiliacion");
+                Console.WriteLine("4. Eliminar");
                 Console.WriteLine("5. Modificar");
                 Console.WriteLine("6. Salir");
                 do
@@ -144,6 +144,21 @@ namespace Presentacion
                         }
                         Console.WriteLine("Presione cualquier tecla para continuar...");
                         Console.ReadKey();
+                        break;
+                    case 4:
+                        do
+                        {
+                            Console.Clear();
+                            string cedulaQuitar;
+
+                            Console.WriteLine("ELIMINAR");
+                            Console.WriteLine("Escriba la identificacion de la persona que desea eliminar");
+                            Console.WriteLine("Cedula: ");
+                            cedulaQuitar = Console.ReadLine();
+
+                            Console.WriteLine(cuotaModeradoraService.Eliminar(cedulaQuitar));
+                        } while (DeseaContinuar().Equals("S"));
+                        Console.ReadKey(); 
                         break; 
                 }
 
