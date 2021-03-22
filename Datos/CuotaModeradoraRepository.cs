@@ -111,6 +111,36 @@ namespace Datos
 
         }
 
+        public void Modificar(LiquidacionDeCuotaModeradora LiquidacionNueva, string numeroLiquidacion)
+        {
+            List<LiquidacionDeCuotaModeradora> liquidaciones = Consultar();
+            FileStream file = new FileStream(ubicacion, FileMode.Create);
+            file.Close();
+            foreach (var l in liquidaciones)
+            {
+                if (!l.NumeroLiquidacion.Equals(numeroLiquidacion))
+                {
+                    Guardar(l);
+                }
+                else
+                {
+                    Guardar(LiquidacionNueva);
+                }
+            }
+        }
+
+        public LiquidacionDeCuotaModeradora buscarPorNumeroLiquidacion(string numeroLiquidacion)
+        {
+            foreach (var l in Consultar())
+            {
+                if (l.NumeroLiquidacion.Equals(numeroLiquidacion))
+                {
+                    return l;
+                }
+            }
+            return null;
+        }
+
     }
 
 }

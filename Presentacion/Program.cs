@@ -159,7 +159,78 @@ namespace Presentacion
                             Console.WriteLine(cuotaModeradoraService.Eliminar(cedulaQuitar));
                         } while (DeseaContinuar().Equals("S"));
                         Console.ReadKey(); 
-                        break; 
+                        break;
+                    case 5:
+                        do
+                        {
+                            string nombre2, cedula2;
+                            string numeroLiquidacion2;
+                            string afiliacion2;
+                            double salario2;
+                            string servicio2;
+                            double valorServicio2;
+                            Console.WriteLine("MOFICAR");
+                            Console.WriteLine("BUSCAR PACIENTE POR NUMERO DE LIQUIDACION: ");
+                            numeroLiquidacion2 = Console.ReadLine();
+                            BuscarPorNumeroLiquidacionRespuesta respuesta = cuotaModeradoraService.BuscarPorNumeroLiquidacion(numeroLiquidacion2);
+                            if (!respuesta.Error)
+                            {
+                                Console.WriteLine("Cedula: ");
+                                cedula2 = Console.ReadLine();
+
+                                Console.WriteLine("Nombre: ");
+                                nombre2 = Console.ReadLine();
+
+                                Console.WriteLine("Tipo de afiliacion: ");
+                                afiliacion2 = Console.ReadLine();
+
+                                Console.WriteLine("Salario devengado");
+                                salario2 = double.Parse(Console.ReadLine());
+
+                                Console.WriteLine("Servicio prestado");
+                                servicio2 = Console.ReadLine();
+
+                                Console.WriteLine("Valor servicio prestado");
+                                valorServicio2 = double.Parse(Console.ReadLine());
+
+                                if (afiliacion2.Equals("CON"))
+                                {
+                                    LiquidacionDeCuotaModeradora liquidacion = new Contributivo()
+                                    {
+                                        Cedula = cedula2,
+                                        Nombre = nombre2,
+                                        NumeroLiquidacion = numeroLiquidacion2,
+                                        Afiliacion = afiliacion2,
+                                        Salario = salario2,
+                                        Servicio = servicio2,
+                                        ValorServicio = valorServicio2,
+                                    };
+                                    liquidacion.CuotaModeradora();
+                                    cuotaModeradoraService.Modificar(liquidacion, numeroLiquidacion2);
+                                }
+                                else if (afiliacion2.Equals("SUB"))
+                                {
+                                    LiquidacionDeCuotaModeradora liquidacion = new Subsidiado()
+                                    {
+                                        Cedula = cedula2,
+                                        Nombre = nombre2,
+                                        NumeroLiquidacion = numeroLiquidacion2,
+                                        Afiliacion = afiliacion2,
+                                        Salario = 0,
+                                        Servicio = servicio2,
+                                        ValorServicio = valorServicio2,
+                                    };
+                                    liquidacion.CuotaModeradora();
+                                    cuotaModeradoraService.Modificar(liquidacion, numeroLiquidacion2);
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine(respuesta.Mensaje);
+                            }
+                        } while (DeseaContinuar().Equals("S"));
+                        Console.ReadKey();
+                        break;
                 }
 
             } while (opcion != 6);

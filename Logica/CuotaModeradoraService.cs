@@ -34,12 +34,12 @@ namespace Logica
         {
             try
             {
-                return new ConsultaRespuesta(cuotaModeradoraRepository.Consultar()); 
+                return new ConsultaRespuesta(cuotaModeradoraRepository.Consultar());
             }
             catch (Exception e)
             {
 
-                return new ConsultaRespuesta("Error " + e.Message); 
+                return new ConsultaRespuesta("Error " + e.Message);
             }
         }
 
@@ -60,8 +60,8 @@ namespace Logica
         {
             try
             {
-                    cuotaModeradoraRepository.Eliminar(cedula);
-                    return "Persona eliminada";
+                cuotaModeradoraRepository.Eliminar(cedula);
+                return "Persona eliminada";
             }
             catch (Exception e)
             {
@@ -69,6 +69,34 @@ namespace Logica
             }
         }
 
+        public string Modificar(LiquidacionDeCuotaModeradora numeroLiquidacionNuevo, string numeroLiquidacion)
+        {
+            try
+            {
+                if (cuotaModeradoraRepository.buscarPorNumeroLiquidacion(numeroLiquidacion) != null)
+                {
+                    cuotaModeradoraRepository.Modificar(numeroLiquidacionNuevo, numeroLiquidacion);
+                    return "Persona modificada correctamente";
+                }
+                return "Error, la persona no se encuentra registrada";
+            }
+            catch (Exception e)
+            {
+                return "Se presentó un error " + e.Message;
+            }
+        }
+
+        public BuscarPorNumeroLiquidacionRespuesta BuscarPorNumeroLiquidacion(string numeroLiquidacion)
+        {
+            try
+            {
+                return new BuscarPorNumeroLiquidacionRespuesta(cuotaModeradoraRepository.buscarPorNumeroLiquidacion(numeroLiquidacion));
+            }
+            catch (Exception e)
+            {
+                return new BuscarPorNumeroLiquidacionRespuesta("Error, " + e.Message);
+            }
+        }
     }
 
     public class ConsultaRespuesta
@@ -89,6 +117,28 @@ namespace Logica
         {
             Mensaje = mensaje;
             Error = true;
+        }
+    }
+
+    public class BuscarPorNumeroLiquidacionRespuesta
+    {
+
+        public LiquidacionDeCuotaModeradora LiquidacionDeCuotaModeradora { get; set; }
+
+        public bool Error { get; set; }
+
+        public string Mensaje { get; set; }
+
+        public BuscarPorNumeroLiquidacionRespuesta(string mensaje)
+        {
+            Mensaje = mensaje;
+            Error = true;
+        }
+
+        public BuscarPorNumeroLiquidacionRespuesta(LiquidacionDeCuotaModeradora liquidacionDeCuotaModeradora)
+        {
+            LiquidacionDeCuotaModeradora = liquidacionDeCuotaModeradora;
+            Error = false;
         }
     }
 }
