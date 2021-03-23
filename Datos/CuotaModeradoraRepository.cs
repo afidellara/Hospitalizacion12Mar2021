@@ -13,6 +13,7 @@ namespace Datos
     {
 
         string ubicacion = "liquidacion.txt";
+        
         public void Guardar(LiquidacionDeCuotaModeradora liquidacion)
         {
             FileStream file = new FileStream(ubicacion, FileMode.Append);
@@ -70,32 +71,6 @@ namespace Datos
             return liquidacion;
         }
 
-        public List<LiquidacionDeCuotaModeradora> ConsultarPorAfiliacion(string afiliacion)
-        {
-            List<LiquidacionDeCuotaModeradora> liquidaciones = new List<LiquidacionDeCuotaModeradora>();
-            FileStream file = new FileStream(ubicacion, FileMode.OpenOrCreate, FileAccess.Read);
-            StreamReader reader = new StreamReader(file);
-            string linea = string.Empty;  
-
-            while ((linea = reader.ReadLine()) != null)
-            {
-                if (afiliacion.Equals("CON"))
-                {
-                    LiquidacionDeCuotaModeradora liquidacion = MapearLiquidacion(linea);
-                    liquidaciones.Add(liquidacion);
-                }
-                else 
-                {
-                    LiquidacionDeCuotaModeradora liquidacion = MapearLiquidacion(linea);
-                    liquidaciones.Add(liquidacion);
-                }
-            }
-            reader.Close();
-            file.Close();
-            return liquidaciones;
-
-        }
-
         public void Eliminar(string cedula)
         {
             List<LiquidacionDeCuotaModeradora> liquidaciones = Consultar();
@@ -128,6 +103,22 @@ namespace Datos
                 }
             }
         }
+
+        public List<LiquidacionDeCuotaModeradora> ConsultaPorAfiliacion(string afiliacion)
+        {
+            List<LiquidacionDeCuotaModeradora> liquidacion = Consultar();
+            List<LiquidacionDeCuotaModeradora> regimen = new List<LiquidacionDeCuotaModeradora>();
+
+            foreach (var item in liquidacion)
+            {
+                if (item.Afiliacion.Equals(afiliacion))
+                {
+                    regimen.Add(item);
+                }
+            }
+            return regimen;
+        }
+
 
         public LiquidacionDeCuotaModeradora buscarPorNumeroLiquidacion(string numeroLiquidacion)
         {

@@ -47,11 +47,10 @@ namespace Logica
         {
             try
             {
-                return new ConsultaRespuesta(cuotaModeradoraRepository.ConsultarPorAfiliacion(afiliacion));
+                return new ConsultaRespuesta(cuotaModeradoraRepository.ConsultaPorAfiliacion(afiliacion));
             }
             catch (Exception e)
             {
-
                 return new ConsultaRespuesta("Error " + e.Message);
             }
         }

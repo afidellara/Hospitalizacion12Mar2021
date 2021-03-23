@@ -119,7 +119,6 @@ namespace Presentacion
                         break;
                     case 3:
                         string afiliacionFiltro;
-                        
                         Console.WriteLine("CONSULTAR POR AFILIACION");
                         Console.WriteLine("CON  O  SUB: ");
                         afiliacionFiltro = Console.ReadLine();
@@ -128,14 +127,7 @@ namespace Presentacion
                         {
                             foreach (var l in consulta1.Liquidaciones)
                             {
-                                if (afiliacionFiltro.Equals("CON"))
-                                {
-                                    Console.WriteLine(l.ToString());
-                                }
-                                else if (afiliacionFiltro.Equals("SUB"))
-                                {
-                                    Console.WriteLine(l.ToString());
-                                }
+                                Console.WriteLine(l.ToString());
                             }
                         }
                         else
@@ -231,6 +223,9 @@ namespace Presentacion
                         } while (DeseaContinuar().Equals("S"));
                         Console.ReadKey();
                         break;
+                    case 6:
+                        opcion = 6; 
+                        break; 
                 }
 
             } while (opcion != 6);
